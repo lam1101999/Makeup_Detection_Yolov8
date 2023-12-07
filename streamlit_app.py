@@ -28,6 +28,7 @@ headModel = torch.nn.Sequential(
 res50.fc = headModel
 res50.load_state_dict(parameters)
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
 image_size: Tuple[int, int] = (224, 224)
 class_names = ['Make_up', 'Non_Make_up']
 
