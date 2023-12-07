@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+pip install ultralytics==1.0.1
 
 image_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if image_file is not None:
