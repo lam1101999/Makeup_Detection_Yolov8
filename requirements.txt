@@ -13,7 +13,11 @@ scipy>=1.4.1
 torch>=1.7.0
 torchvision>=0.8.1
 tqdm>=4.64.0
-ultralytics
+opencv_python
+sahi
+torch
+ultralytics==8.0.4
+ultralyticsplus==0.0.28
 
 #tracking
 filterpy
