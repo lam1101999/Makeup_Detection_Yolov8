@@ -26,6 +26,22 @@ headModel = torch.nn.Sequential(
 res50.fc = headModel
 res50.load_state_dict(parameters)
 
+image_size: Tuple[int, int] = (224, 224)
+class_names = ['Make_up', 'Non_Make_up']
+
+image_transform = transforms.Compose(
+            [
+                transforms.Resize(image_size),
+                transforms.ToTensor(),
+                transforms.Normalize(
+                    mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]
+                ),
+            ]
+        )
+res50.to(device)
+res50.eval()
+
+our_image = Image()
 image_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if image_file is not None:
   our_image = Image.open(image_file).convert("RGB")
