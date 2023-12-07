@@ -13,7 +13,7 @@ torch
 torchvision
 tqdm>=4.64.0
 opencv_python
-cv2
+opencv-python-headless
 sahi
 ultralytics
 
