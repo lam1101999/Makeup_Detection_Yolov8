@@ -15,8 +15,7 @@ torchvision>=0.8.1
 tqdm>=4.64.0
 opencv_python
 sahi
-ultralytics==8.0.4
-ultralyticsplus==0.0.28
+ultralytics>=8.0.4
 
 #tracking
 filterpy
