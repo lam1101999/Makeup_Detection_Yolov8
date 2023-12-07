@@ -7,6 +7,7 @@ import torch.nn as nn
 import torchvision.models as models
 from torchvision import transforms
 from typing import List, Tuple
+from ultralytics import YOLO
 
 model_weight_url = 'https://github.com/VinhRP/Makeup_Detection_Yolov8/releases/download/Makeup_detection/ResNet50.pth'
 response = requests.get(model_weight_url)
@@ -44,9 +45,20 @@ image_transform = transforms.Compose(
 res50.to(device)
 res50.eval()
 
-our_image = None
-
-image_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if image_file is not None:
   our_image = Image.open(image_file).convert("RGB")
-st.image(our_image, channels="RGB")
+  yolo = YOLO('https://github.com/VinhRP/Makeup_Detection_Yolov8/releases/download/Makeup_detection/face_detection_224.pt')
+  results = yolo.predict(our_image) # predict on an image
+  for r in results:
+    cords = r.boxes.xyxy[0].tolist()
+    cords = [round(x) for x in cords]
+    img = Image.fromarray(r.plot()[..., :: -1]) ## Original image
+    img2 = img.crop(cords) ##Croped image
+  with torch.inference_mode():
+    transformed_image = image_transform(img2).unsqueeze(dim=0)
+    target_image_pred = res50(transformed_image.to(device))
+    target_image_pred_probs = torch.softmax(target_image_pred, dim=1)
+    target_image_pred_label = torch.argmax(target_image_pred_probs, dim=1)
+  information = f"Pred: {class_names[target_image_pred_label]} | Prob: {target_image_pred_probs.max():.3f}"
+  st.text(information)
+  st.image(our_image, channels="RGB")
