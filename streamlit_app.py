@@ -10,9 +10,21 @@ model_weight_url = 'https://github.com/VinhRP/Makeup_Detection_Yolov8/releases/d
 response = requests.get(model_weight_url)
 model_weight_data = response.content
 parameters = torch.load(io.BytesIO(model_weight_data), map_location=torch.device('cpu'))  
-model = None
-model = models.resnet50(weights=None)
-model.load_state_dict(parameters)
+res50 = None
+res50 = models.resnet50(weights=None)
+numFeatures = res50.fc.in_features
+
+headModel = torch.nn.Sequential(
+	torch.nn.Linear(numFeatures, 512),
+	torch.nn.ReLU(),
+	torch.nn.Dropout(0.25),
+	torch.nn.Linear(512, 256),
+	torch.nn.ReLU(),
+	torch.nn.Dropout(0.5),
+	torch.nn.Linear(256, 2)
+)
+res50.fc = headModel
+res50.load_state_dict(parameters)
 
 image_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if image_file is not None:
