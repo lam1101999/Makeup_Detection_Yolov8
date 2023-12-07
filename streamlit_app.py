@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
+import ultralytics
 from ultralytics import YOLO
-pip install ultralytics streamlit pafy
 
 image_file = st.file_uploader("Upload an image", type=["png", "jpg", "jpeg"])
 if image_file is not None:
