@@ -2,7 +2,6 @@ import streamlit as st
 from PIL import Image
 import io
 import requests
-import helper.image_helper as ih
 import torch
 import torch.nn as nn
 import torchvision.models as models
