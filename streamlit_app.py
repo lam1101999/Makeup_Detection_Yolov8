@@ -7,8 +7,7 @@ import torch.nn as nn
 import torchvision.models as models
 from torchvision import transforms
 from typing import List, Tuple
-import ultralytics
-from ultralytics import YOLO
+
 
 model_weight_url = 'https://github.com/VinhRP/Makeup_Detection_Yolov8/releases/download/Makeup_detection/ResNet50.pth'
 response = requests.get(model_weight_url)
