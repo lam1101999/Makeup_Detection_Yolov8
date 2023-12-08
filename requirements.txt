@@ -7,7 +7,7 @@ Pillow
 requests
 torch
 torchvision
-opencv_python
+opencv-python
 ultralytics
 
 # Plotting ------------------------------------
