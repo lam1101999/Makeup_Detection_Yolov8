@@ -7,7 +7,7 @@ Pillow
 requests
 torch
 torchvision
-python3-opencv
+opencv-python-headless==4.5.3.56
 ultralytics
 
 # Plotting ------------------------------------
