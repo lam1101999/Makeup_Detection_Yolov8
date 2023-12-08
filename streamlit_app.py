@@ -48,16 +48,8 @@ res50.eval()
 
 if image_file is not None:
   our_image = Image.open(image_file).convert("RGB")
-  yolo = YOLO("yolov8n.yaml")
-  yolo = YOLO('./face_detection_224.pt')
-  results = yolo.predict(our_image) # predict on an image
-  for r in results:
-    cords = r.boxes.xyxy[0].tolist()
-    cords = [round(x) for x in cords]
-    img = Image.fromarray(r.plot()[..., :: -1]) ## Original image
-    img2 = img.crop(cords) ##Croped image
   with torch.inference_mode():
-    transformed_image = image_transform(img2).unsqueeze(dim=0)
+    transformed_image = image_transform(our_image).unsqueeze(dim=0)
     target_image_pred = res50(transformed_image.to(device))
     target_image_pred_probs = torch.softmax(target_image_pred, dim=1)
     target_image_pred_label = torch.argmax(target_image_pred_probs, dim=1)
