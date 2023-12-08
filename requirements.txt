@@ -8,9 +8,7 @@ requests
 torch
 torchvision
 ultralytics
-freeglut3-dev
-libgtk2.0-dev
-libgl1-mesa-glx
+opencv-python
 
 # Plotting ------------------------------------
 pandas
