@@ -49,7 +49,7 @@ res50.eval()
 if image_file is not None:
   our_image = Image.open(image_file).convert("RGB")
   yolo = YOLO("yolov8n.yaml")
-  yolo = YOLO('https://github.com/VinhRP/Makeup_Detection_Yolov8/releases/download/Makeup_detection/face_detection_224.pt')
+  yolo = YOLO('./face_detection_224.pt')
   results = yolo.predict(our_image) # predict on an image
   for r in results:
     cords = r.boxes.xyxy[0].tolist()
